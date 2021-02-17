@@ -115,6 +115,24 @@ RiskRating1.update_traces(contours_coloring="fill", contours_showlabels = True)
 ###### Maximum Annualised Refurbishment Cost Across Scenarios
 tr_maximumAnnualisedRefCostAcrossScenarios = px.box(trdf,x='Scenario',y='Cost',template=template, title="Maximum Annualised Refurbishment Cost Across Scenarios")
 
+
+######TEST
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ####################################
 ####################################
 ####################################
@@ -227,15 +245,11 @@ app.layout = html.Div([
         id = 'tr_maximumAnnualisedRefCostAcrossScenarios',
         figure = tr_maximumAnnualisedRefCostAcrossScenarios,
     ),
-
-
-
-
-
     
-
-
-
+    dcc.Graph(
+        id = 'test',
+        figure = fig,
+    ),
 
 ])
 
