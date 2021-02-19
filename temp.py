@@ -45,7 +45,7 @@ df_tr = df_tr.values.tolist()
 
 ## Physical Risk
 #df_pr - prepared trdf dataset to use in dash pivot table
-df_pr = pd.read_excel('DF.xlsx',sheet_name=0,header=None)
+df_pr = pd.read_csv('JBA.csv',header=None)
 df_pr = df_pr.values.tolist()
 
 
