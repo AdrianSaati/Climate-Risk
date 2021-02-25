@@ -32,39 +32,6 @@ physical_Risk_data = pd.read_excel('DF.xlsx',sheet_name=0,header=None)
 physical_Risk_data = physical_Risk_data.values.tolist()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Creating graphs
 
 template = 'simple_white'
@@ -73,17 +40,6 @@ template = 'simple_white'
 # template = 'xgridoff'
 # template = 'xgridoff'
 # template = 'plotly_white'
-
-
-
-
-
-
-
-
-
-
-
 
 
 ### Primary Portfolio Metrics
@@ -103,12 +59,6 @@ tr_numberOfProperties2 = px.histogram(trdf,x='Risk',template=template, title="Nu
 df_tr_noOfProperties = df_tr_noOfProperties
 
 
-
-
-
-
-
-
 ##### Total outstanding loans
 # creating temp. df with cumulation of outstanding loan for each risk in transition risk
 df_tr_TotalOutstandingLoans = pd.DataFrame(trdf.groupby('Risk')['Outstanding loan'].sum()).reset_index()
@@ -117,13 +67,6 @@ tr_TotalOutstandingLoans = px.pie(df_tr_TotalOutstandingLoans,names='Risk',value
 #metric
 df_tr_TotalOutstandingLoans.rename(columns = {'Outstanding loan':'GBP'},inplace = True)
 df_tr_TotalOutstandingLoans = df_tr_TotalOutstandingLoans
-
-
-
-
-
-
-
 
 
 ##### Maximum/range of financial impact (e.g. RWA / ECL)
@@ -136,11 +79,6 @@ df_tr_financialImpact_max = pd.DataFrame(trdf.groupby('Risk')['ECL'].max()).rese
 df_tr_financialImpact = pd.merge(left = df_tr_financialImpact_min, right = df_tr_financialImpact_max, how='inner')
 df_tr_financialImpact['Range of ECL'] = round(df_tr_financialImpact['max ECL'] - df_tr_financialImpact['min ECL'],2)
 df_tr_financialImpact = df_tr_financialImpact
-
-
-
-
-
 
 
 ##### Distribution of current EPC
@@ -166,9 +104,6 @@ graph_distributionOfCurrentEPC = px.bar(trdf[['EPC','Risk']], y='EPC', color='EP
                      "Risk": "Risk"},orientation='h')
 
 
-
-
-
 ### Exposure Impacts
 
 #### Data generated at customer level per scenario
@@ -181,12 +116,6 @@ costOfPropertyRef = px.histogram(trdf, x='Cost', marginal='rug',nbins=20, color=
 df_costOfPropertyRef = trdf[['Cost','Scenario']]
 df_costOfPropertyRef = df_costOfPropertyRef.groupby('Scenario').sum().reset_index()
 df_costOfPropertyRef = df_costOfPropertyRef
-
-
-
-
-
-
 
 
 
@@ -241,13 +170,6 @@ metric_df_annualisedRefCostAsPercentOfMortgagePayment
 
 
 
-
-
-
-
-
-
-
 ##### Property valuation haircut
 propertyValuationHaircut1 = px.histogram(trdf, x="Property valuation haircut", color='Scenario', barmode='group',template=template, title="Property Valuation Haircut") 
 propertyValuationHaircut2 = px.scatter(trdf, x="Property valuation haircut", hover_data=['Property value', 'Property valuation haircut','ECL'], color='Scenario',  marginal_x='rug', size='ECL', template=template, title="Property Valuation Haircut") 
@@ -258,12 +180,6 @@ metric_propertyValuationHaircut = metric_propertyValuationHaircut.groupby('Scena
 metric_propertyValuationHaircut.rename(columns={'Property valuation haircut':'Avg. percent of property valuation haircut'}, inplace=True)
 metric_propertyValuationHaircut['Avg. percent of property valuation haircut'] = metric_propertyValuationHaircut['Avg. percent of property valuation haircut'].apply(lambda x: round(x,2))
 metric_propertyValuationHaircut
-
-
-
-
-
-
 
 
 #### Cross-scenario customer metrics used in underwriting
@@ -297,13 +213,6 @@ metric_df_tr_riskRating = metric_df_tr_riskRating.groupby(['Scenario','Risk']).s
 metric_df_tr_riskRating = metric_df_tr_riskRating.reset_index()
 
 
-
-
-
-
-
-
-
 ###### Maximum Annualised Refurbishment Cost Across Scenarios
 tr_maximumAnnualisedRefCostAcrossScenarios = px.box(trdf,x='Scenario',y='Cost',template=template, title="Maximum Annualised Refurbishment Cost Across Scenarios")
 #metric
@@ -313,16 +222,9 @@ metric_df_maxAnnualRefCostCrossScenarios.rename(columns={'Cost':'Max. Refurbishm
 metric_df_maxAnnualRefCostCrossScenarios = metric_df_maxAnnualRefCostCrossScenarios
 
 
-
 ##### LTV
 trdf['Loan to Value'] = trdf['Loan'] / trdf['Property value']
 graph_tr_ltv = px.bar(trdf, x ='Risk', y='Loan to Value', color = 'Scenario')
-
-
-
-
-
-
 
 
 
@@ -383,23 +285,6 @@ graph_pr_backBook = px.scatter(prdf[['Flood Risk','Property reduction']],y = 'Pr
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #Number of Properties
 df_pr_noOfProperties = prdf['Risk'].value_counts()
 df_pr_noOfProperties = df_pr_noOfProperties.to_frame()
@@ -410,8 +295,6 @@ pr_numberOfProperties1 = px.pie(df_pr_noOfProperties,values='Properties',names='
 pr_numberOfProperties2 = px.histogram(trdf,x='Risk',template=template, title="Number of Properties")
 #metric
 df_pr_noOfProperties = df_pr_noOfProperties
-
-
 
 
 
